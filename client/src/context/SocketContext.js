@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { io } from "socket.io-client";
+import io from "socket.io-client";
 
 const SocketContext = createContext();
 

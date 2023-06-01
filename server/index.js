@@ -17,10 +17,19 @@ const rooms = [];
 io.on("connection", (socket) => {
   console.log("connected", socket.id);
   roomHandler(io, socket, rooms);
+  
+  socket.on("send_message", (data) => {
+  console.log("Received message:", data);
+  // io.to(data.room.roomId).emit("receive_message", data);
+  socket.broadcast.to(data.room.roomId).emit("receive_message", data);
+
+  });
 
   socket.on("disconnect", () => {
     console.log("disconnected", socket.id);
   });
+
+  
 });
 
 const port = process.env.PORT || 8080;

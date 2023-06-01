@@ -32,6 +32,28 @@
   transform: rotate(15deg);
 }
 
+.chatButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.chatNameInput {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 
 /* Media Queries */
 @media screen and (max-width: 768px) {

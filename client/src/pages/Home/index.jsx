@@ -5,6 +5,7 @@ import rock_left_hand_img from "../../images/rock_left_hand.png";
 import styles from "./styles.module.css";
 
 const Home = () => {
+
   return (
     <>
       <div className={styles.left}>

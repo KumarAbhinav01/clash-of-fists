@@ -9,8 +9,12 @@ import win_img from "../../images/win.png";
 import lose_img from "../../images/lose.png";
 import boom_img from "../../images/boom.png";
 import styles from "./styles.module.css";
+import Chat from "../../components/ChatBox";
 
 const Room = () => {
+  const [isChatBoxVisible, setChatBoxVisibility] = useState(false);
+  const [userName, setUserName] = useState("");
+  
   const [result, setResult] = useState({
     rotate: 0,
     show: false,
@@ -20,6 +24,14 @@ const Room = () => {
   const { socket, room, player_1, player_2 } = useContext(SocketContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const toggleChatBoxVisibility = () => {
+    setChatBoxVisibility((prevVisibility) => !prevVisibility);
+  };
+  
+  const handleUserNameChange = (event) => {
+    setUserName(event.target.value);
+    console.log(userName);
+  };
 
   useEffect(() => {
     let roomId = location.pathname.split("/")[2];
@@ -105,19 +117,39 @@ const Room = () => {
 
   return (
     <>
-      <img src={vs_img} alt="vs" className={styles.background_img} />
-      <PlayerOne result={result} />
-      <PlayerTwo result={result} />
-      {player_2 && <Controls />}
-      {resultText === "win" && (
-        <img src={win_img} alt="win_img" className={styles.win_img} />
-      )}
-      {resultText === "lose" && (
-        <img src={lose_img} alt="lose_img" className={styles.lose_img} />
-      )}
-      {resultText === "tie" && (
-        <img src={boom_img} alt="boom_img" className={styles.boom_img} />
-      )}
+        <img src={vs_img} alt="vs" className={styles.background_img} />
+          <PlayerOne result={result} />
+          <PlayerTwo result={result} />
+          {player_2 && <Controls />}
+          {resultText === "win" && (
+            <img src={win_img} alt="win_img" className={styles.win_img} />
+          )}
+          {resultText === "lose" && (
+            <img src={lose_img} alt="lose_img" className={styles.lose_img} />
+          )}
+          {resultText === "tie" && (
+            <img src={boom_img} alt="boom_img" className={styles.boom_img} />
+          )}
+          
+          {isChatBoxVisible ? 
+          <>
+            <Chat socket={socket} username={userName} room={room}/> 
+          </>
+          : 
+          <>
+          <input
+            className={styles.chatNameInput}
+            type="text"
+            id="username"
+            placeholder="Enter Your Name..."
+            value={userName}
+            onChange={handleUserNameChange}
+          />
+          <button onClick={toggleChatBoxVisibility} className={styles.chatButton}>
+            Chat
+          </button>
+          </>
+          }
     </>
   );
 };
